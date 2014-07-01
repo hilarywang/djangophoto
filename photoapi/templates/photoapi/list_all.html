@@ -1,0 +1,10 @@
+{% extends "photoapi/base.html" %}
+{% block content %}
+{% for photo in data %}
+        <p>title: {{ photo.title }}</p>
+
+	<img src="{{ MEDIA_URL }}{{ MEDIA_ROOT }}{{photo.image}}" style="height:250px; width:200px;">
+{% endfor %}
+
+</form>
+{% endblock %}

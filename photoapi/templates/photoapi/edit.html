@@ -1,0 +1,23 @@
+{% extends "photoapi/base.html" %}
+{% block content %}
+        <p>Name: {{ client.first_name }} {{client.last_name}}</p>
+        <p>personal website: {{ client.website }}</p>
+	<img src="{{ MEDIA_URL }}{{ MEDIA_ROOT }}{{client.picture}}" style="height:250px; width:200px;">
+
+	
+{% if photo.id %}
+<h1>Edit image</h1>
+<a href="{% url 'photo-delete' pk=contact.id %}">Delete</a>
+{% else %}
+<h1>Upload Image</h1>
+{% endif %}
+
+<form action="{{target}}" method="POST">
+    {% csrf_token %}
+	<ul>
+	    {{form.as_ul }}
+	</ul>
+	<input id="save_photo" type="submit" value="Save"/>
+</form>
+<a href="{% url "user-photo" %}">back to list</a>
+{% endblock %}

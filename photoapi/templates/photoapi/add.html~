@@ -1,0 +1,24 @@
+{% extends "photoapi/base.html" %}
+{% block content %}
+        <p>Name: {{ client.first_name }} {{client.last_name}}</p>
+        <p>personal website: {{ client.website }}</p>
+	<img src="{{ MEDIA_URL }}{{ MEDIA_ROOT }}{{client.picture}}" style="height:250px; width:200px;">
+
+	<form action="{% url 'photo-new' %}" method="post" enctype="multipart/form-data">
+  		{{ form.as_p }}
+  <input type="submit" id="submit" class="large button expand" value="Upload Image">
+  {% csrf_token %}
+</form>
+{% for photo in object_list %}
+        <p>title: {{ photo.title }}</p>
+
+	<img src="{{ MEDIA_URL }}{{ MEDIA_ROOT }}{{photo.image}}" style="height:250px; width:200px;">
+        (<a href="{% url "photo-edit" pk=photo.id %}">edit</a>)
+	<form action='{% url "photo-delete" pk=photo.id %}' method="POST">
+  	{% csrf_token %}
+  		<input type="submit" value="Yes, delete." />
+  
+	</form>
+{% endfor %}
+
+{% endblock %}
